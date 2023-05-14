@@ -4,12 +4,35 @@ import Header from './Componets/Header/Header';
 import Formulario from './Componets/Formulario/Formulario';
 import MiOrg from './Componets/MiOrg';
 import Equipo from './Componets/Equipo';
+import Footer from './Componets/Footer';
 
 function App() {
 	//Ternario --> condicion ? semuestra : noSemuestra
 	//Condicion && seMuestra
 
-	const [mostrarFormulario, actualiarMostrar] = useState(false);
+	const [mostrarFormulario, actualiarMostrar] = useState(true);
+	const [colaboradores, actualizarColaboradores] = useState([
+		{
+			equipo: 'Fornt-End',
+			foto: 'https://github.com/Orionwilx.png',
+			nombre: 'Wilman Zuleta',
+			puesto: 'Estudiante ',
+		},
+		{
+			equipo: 'UX y Diseño',
+			foto: 'https://github.com/Caro-ov.png',
+			nombre: 'Adriana Olivares',
+			puesto: 'Estudiante ',
+		},
+	]);
+
+	//Registrar colaborador
+
+	const registrarColaborador = (colaborador) => {
+		console.log(colaborador);
+		//spread operator
+		actualizarColaboradores([...colaboradores, colaborador]);
+	};
 
 	//Lista equipos
 	const equipos = [
@@ -59,13 +82,23 @@ function App() {
 			{<Header />}
 			{
 				mostrarFormulario && (
-					<Formulario equipos={equipos.map((equipo) => equipo.titulo)} />
+					<Formulario
+						equipos={equipos.map((equipo) => equipo.titulo)}
+						registrarColaborador={registrarColaborador}
+					/>
 				) /*  Forma elegante de ponerlo */
 			}
 			<MiOrg cambiarMostrar={cambiarMostrar} />
 			{equipos.map((equipo) => (
-				<Equipo datos={equipo} key={equipo.titulo} />
+				<Equipo
+					datos={equipo}
+					key={equipo.titulo}
+					colaboradores={colaboradores.filter(
+						(colaborador) => colaborador.equipo === equipo.titulo
+					)}
+				/>
 			))}
+			<Footer />
 		</div>
 	);
 }

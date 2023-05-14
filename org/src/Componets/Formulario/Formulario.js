@@ -10,6 +10,8 @@ const Formulario = (props) => {
 	const [foto, setFoto] = useState('');
 	const [equipo, setEquipo] = useState('');
 
+	const { registrarColaborador } = props;
+
 	const majearEnvio = (e) => {
 		e.preventDefault();
 		console.log('manejar envio');
@@ -19,7 +21,7 @@ const Formulario = (props) => {
 			foto,
 			equipo,
 		};
-		console.log(datosEnviar);
+		registrarColaborador(datosEnviar);
 	};
 
 	return (
