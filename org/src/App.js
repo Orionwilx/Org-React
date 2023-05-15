@@ -8,7 +8,7 @@ import Equipo from './Componets/Equipo';
 import Footer from './Componets/Footer';
 
 function App() {
-	const [mostrarFormulario, actualiarMostrar] = useState(true);
+	const [mostrarFormulario, actualiarMostrar] = useState(false);
 	const [colaboradores, actualizarColaboradores] = useState([
 		{
 			id: uuid(),
@@ -16,6 +16,7 @@ function App() {
 			foto: 'https://github.com/Orionwilx.png',
 			nombre: 'Wilman Zuleta',
 			puesto: 'Estudiante ',
+			fav: true,
 		},
 		{
 			id: uuid(),
@@ -23,6 +24,7 @@ function App() {
 			foto: 'https://github.com/Caro-ov.png',
 			nombre: 'Adriana Olivares',
 			puesto: 'Estudiante ',
+			fav: true,
 		},
 	]);
 	const [equipos, actualizarEquipos] = useState([
@@ -63,6 +65,7 @@ function App() {
 			colorSecundario: '#FFF5D9',
 		},
 		{
+			id: uuid(),
 			titulo: 'Innovacion y gestion',
 			colorPrimario: '#FF8A29',
 			colorSecundario: '#FFEEDF',
@@ -102,10 +105,21 @@ function App() {
 		actualiarMostrar(!mostrarFormulario);
 	};
 
+	//Crear equipo
 	const crearEquipo = (nuevoEquipo) => {
 		console.log(nuevoEquipo);
 		actualizarEquipos([...equipos, { ...nuevoEquipo, id: uuid() }]);
 	};
+
+	const like = (id) => {
+		console.log('Like', id);
+		const coloaboradoresActualizados = colaboradores.map((colaborador) => {
+			if(colaborador.id === id){
+				colaborador.fav = !colaborador.fav;
+			}
+			return colaborador;
+		})	
+	}
 
 	return (
 		//Ternario --> condicion ? semuestra : noSemuestra
@@ -131,6 +145,7 @@ function App() {
 					)}
 					eliminarColaborador={eliminarColaborador}
 					actualizarColor={actualizarColor}
+					like={like}
 				/>
 			))}
 			<Footer />
