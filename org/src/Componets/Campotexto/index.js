@@ -3,6 +3,8 @@ import './Campotexto.css';
 const Campotexto = (props) => {
 	const placeholderModificado = `${props.placeholder}...`;
 
+	const { type } = props;
+
 	const manejarCambio = (e) => {
 		props.actualizarValor(e.target.value);
 	};
@@ -14,6 +16,7 @@ const Campotexto = (props) => {
 				required={props.required}
 				value={props.valor}
 				onChange={manejarCambio}
+				type={type}
 			/>
 		</div>
 	);

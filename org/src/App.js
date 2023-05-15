@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import { v4 as uuid } from 'uuid';
 import Header from './Componets/Header/Header';
 import Formulario from './Componets/Formulario/Formulario';
 import MiOrg from './Componets/MiOrg';
@@ -7,61 +8,56 @@ import Equipo from './Componets/Equipo';
 import Footer from './Componets/Footer';
 
 function App() {
-	//Ternario --> condicion ? semuestra : noSemuestra
-	//Condicion && seMuestra
-
 	const [mostrarFormulario, actualiarMostrar] = useState(true);
 	const [colaboradores, actualizarColaboradores] = useState([
 		{
+			id: uuid(),
 			equipo: 'Fornt-End',
 			foto: 'https://github.com/Orionwilx.png',
 			nombre: 'Wilman Zuleta',
 			puesto: 'Estudiante ',
 		},
 		{
+			id: uuid(),
 			equipo: 'UX y Diseño',
 			foto: 'https://github.com/Caro-ov.png',
 			nombre: 'Adriana Olivares',
 			puesto: 'Estudiante ',
 		},
 	]);
-
-	//Registrar colaborador
-
-	const registrarColaborador = (colaborador) => {
-		console.log(colaborador);
-		//spread operator
-		actualizarColaboradores([...colaboradores, colaborador]);
-	};
-
-	//Lista equipos
-	const equipos = [
+	const [equipos, actualizarEquipos] = useState([
 		{
+			id: uuid(),
 			titulo: 'Programacion',
 			colorPrimario: '#57C278',
 			colorSecundario: '#D9F7E9',
 		},
 		{
+			id: uuid(),
 			titulo: 'Fornt-End',
 			colorPrimario: '#82CFFA',
 			colorSecundario: '#E8F8FF',
 		},
 		{
+			id: uuid(),
 			titulo: 'Data Science',
 			colorPrimario: '##A6D157',
 			colorSecundario: '#F0F8E2',
 		},
 		{
+			id: uuid(),
 			titulo: 'DevOps',
 			colorPrimario: '#E06B69',
 			colorSecundario: '#FDE7E8',
 		},
 		{
+			id: uuid(),
 			titulo: 'UX y Diseño',
 			colorPrimario: '#DB6EBF',
 			colorSecundario: '#FAE9F5',
 		},
 		{
+			id: uuid(),
 			titulo: 'Movil',
 			colorPrimario: '#FFBA05',
 			colorSecundario: '#FFF5D9',
@@ -71,13 +67,49 @@ function App() {
 			colorPrimario: '#FF8A29',
 			colorSecundario: '#FFEEDF',
 		},
-	];
+	]);
+
+	//Registrar colaborador
+	const registrarColaborador = (colaborador) => {
+		console.log(colaborador);
+		//spread operator
+		actualizarColaboradores([...colaboradores, colaborador]);
+	};
+
+	//Eliminar colaborador
+	const eliminarColaborador = (id) => {
+		// console.log('eliminar equipos', id);
+		const nuevoColaborador = colaboradores.filter(
+			(colaboradores) => colaboradores.id !== id
+		);
+		actualizarColaboradores(nuevoColaborador);
+	};
+
+	//actualizar color
+	const actualizarColor = (color, id) => {
+		// console.log('Actualizar', color, id);
+		const equiposActualizados = equipos.map((equipo) => {
+			if (equipo.id === id) {
+				equipo.colorPrimario = color;
+			}
+
+			return equipo;
+		});
+		actualizarEquipos(equiposActualizados);
+	};
 
 	const cambiarMostrar = () => {
 		actualiarMostrar(!mostrarFormulario);
 	};
 
+	const crearEquipo = (nuevoEquipo) => {
+		console.log(nuevoEquipo);
+		actualizarEquipos([...equipos, { ...nuevoEquipo, id: uuid() }]);
+	};
+
 	return (
+		//Ternario --> condicion ? semuestra : noSemuestra
+		//Condicion && seMuestra
 		<div>
 			{<Header />}
 			{
@@ -85,6 +117,7 @@ function App() {
 					<Formulario
 						equipos={equipos.map((equipo) => equipo.titulo)}
 						registrarColaborador={registrarColaborador}
+						crearEquipo={crearEquipo}
 					/>
 				) /*  Forma elegante de ponerlo */
 			}
@@ -96,6 +129,8 @@ function App() {
 					colaboradores={colaboradores.filter(
 						(colaborador) => colaborador.equipo === equipo.titulo
 					)}
+					eliminarColaborador={eliminarColaborador}
+					actualizarColor={actualizarColor}
 				/>
 			))}
 			<Footer />
