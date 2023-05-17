@@ -16,7 +16,7 @@ function App() {
 			foto: 'https://github.com/Orionwilx.png',
 			nombre: 'Wilman Zuleta',
 			puesto: 'Estudiante ',
-			fav: false,
+			fav: true,
 		},
 		{
 			id: uuid(),
