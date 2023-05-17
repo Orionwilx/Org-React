@@ -16,7 +16,7 @@ function App() {
 			foto: 'https://github.com/Orionwilx.png',
 			nombre: 'Wilman Zuleta',
 			puesto: 'Estudiante ',
-			fav: true,
+			fav: false,
 		},
 		{
 			id: uuid(),
@@ -25,6 +25,14 @@ function App() {
 			nombre: 'Adriana Olivares',
 			puesto: 'Estudiante ',
 			fav: true,
+		},
+		{
+			id: uuid(),
+			equipo: 'Programacion',
+			foto: 'https://github.com/Kromilla.png',
+			nombre: 'Carlos Ibañez',
+			puesto: 'Estudiante ',
+			fav: false,
 		},
 	]);
 	const [equipos, actualizarEquipos] = useState([
@@ -98,7 +106,7 @@ function App() {
 
 			return equipo;
 		});
-		actualizarEquipos(equiposActualizados);
+		actualizarColaboradores(equiposActualizados);
 	};
 
 	const cambiarMostrar = () => {
@@ -114,12 +122,13 @@ function App() {
 	const like = (id) => {
 		console.log('Like', id);
 		const coloaboradoresActualizados = colaboradores.map((colaborador) => {
-			if(colaborador.id === id){
+			if (colaborador.id === id) {
 				colaborador.fav = !colaborador.fav;
 			}
 			return colaborador;
-		})	
-	}
+		});
+		actualizarColaboradores(coloaboradoresActualizados);
+	};
 
 	return (
 		//Ternario --> condicion ? semuestra : noSemuestra
