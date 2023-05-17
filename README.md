@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Este proyecto fue diseñado solo para el aprendisaje de componentes en react
+Este proyecto fue diseñado solo para el aprendizaje de componentes en react
 
 ## Available Scripts
 
